@@ -29,13 +29,17 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 
-
+let startTime = Date.now()
 
 //Animations 
 const tick = () => {
-    // mesh.position.x += 0.01
-    // mesh.position.y -= 0.01
-    mesh.rotation.y += 0.01
+    const currentTime = Date.now()
+
+    //deltaTime helps to manually  mitigate the effect of difference in fps(frame per seconds) on systems.
+    const deltaTime = currentTime - startTime
+    startTime = currentTime
+
+    mesh.rotation.y += 0.002 * deltaTime
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
 
