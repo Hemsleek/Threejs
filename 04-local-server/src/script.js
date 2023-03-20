@@ -24,11 +24,18 @@ console.log(mesh.position.length());
 //mesh.position.length() will equals 1 
 mesh.position.normalize()
 
-mesh.position.set(1, - 1, 1)
-
+mesh.position.set(0.7, - 1, 1)
 
 //AxesHelper
 const axesHelper = new THREE.AxesHelper(3)
+
+//scale
+mesh.scale.set(2, 0.5, 0.5)
+
+mesh.rotation.reorder("YXZAt")
+// rotation
+mesh.rotation.x = Math.PI * 0.25
+mesh.rotation.y = Math.PI * 0.25
 
 scene.add(axesHelper)
 
@@ -43,11 +50,15 @@ const sizes = {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 
 camera.position.z = 3
+// look At
 
+camera.lookAt(mesh.position)
 //distance between the object/mesh/cube and camerq
 console.log(mesh.position.distanceTo(camera.position));
 
 scene.add(camera)
+
+
 
 const renderer = new THREE.WebGLRenderer({
     canvas
