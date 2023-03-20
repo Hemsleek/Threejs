@@ -26,7 +26,9 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 3
 scene.add(camera)
 
-
+//gsap
+gsap.to(mesh.position, { x: 2, duration: 1, delay: 1 })
+gsap.to(mesh.position, { x: 0, duration: 1, delay: 2 })
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -45,11 +47,11 @@ const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
 
-    mesh.rotation.y = elapsedTime
-    mesh.rotation.x = elapsedTime
-    mesh.rotation.z = elapsedTime
-    mesh.position.y = Math.sin(elapsedTime)
-    mesh.position.x = Math.cos(elapsedTime)
+    // mesh.rotation.y = elapsedTime
+    // mesh.rotation.x = elapsedTime
+    // mesh.rotation.z = elapsedTime
+    // mesh.position.y = Math.sin(elapsedTime)
+    // mesh.position.x = Math.cos(elapsedTime)
 
 
     renderer.render(scene, camera)
