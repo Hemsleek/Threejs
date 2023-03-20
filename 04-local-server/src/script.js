@@ -7,54 +7,45 @@ const canvas = document.querySelector("canvas.webgl")
 
 const scene = new THREE.Scene()
 
-const geometry = new THREE.BoxGeometry(1, 1, 1)
 
-const material = new THREE.MeshBasicMaterial({ color: 'red' })
+const group = new THREE.Group()
 
-const mesh = new THREE.Mesh(geometry, material)
+group.scale.y = 2
+group.rotation.y = 1
+group.position.y = 1
+scene.add(group)
 
-mesh.position.x = 0.7
-mesh.position.y = -0.7
-mesh.position.z = 0.7
+const cube1 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
 
-//distance/length from center of scene to mesh/object/cube
-console.log(mesh.position.length());
+group.add(cube1)
 
-//normalise mesh- reduce it's length to 1
-//mesh.position.length() will equals 1 
-mesh.position.normalize()
+const cube2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 'blue' }))
 
-mesh.position.set(0.7, - 1, 1)
+cube2.position.x = -2
+group.add(cube2)
 
-//AxesHelper
-const axesHelper = new THREE.AxesHelper(3)
 
-//scale
-mesh.scale.set(2, 0.5, 0.5)
+const cube3 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 'green' }))
 
-mesh.rotation.reorder("YXZAt")
-// rotation
-mesh.rotation.x = Math.PI * 0.25
-mesh.rotation.y = Math.PI * 0.25
+cube3.position.x = 2
 
-scene.add(axesHelper)
-
-scene.add(mesh)
-
+group.add(cube3)
 
 const sizes = {
     width: 800,
     height: 600
 }
+//AxesHelper
+const axesHelper = new THREE.AxesHelper(3)
+scene.add(axesHelper)
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 
 camera.position.z = 3
 // look At
 
-camera.lookAt(mesh.position)
-//distance between the object/mesh/cube and camerq
-console.log(mesh.position.distanceTo(camera.position));
+
+
 
 scene.add(camera)
 
