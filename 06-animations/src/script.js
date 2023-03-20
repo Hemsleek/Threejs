@@ -1,4 +1,7 @@
 import * as THREE from 'three'
+import gsap from 'gsap'
+
+console.log(gsap);
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -8,7 +11,7 @@ const scene = new THREE.Scene()
 
 // Object
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ color: "aqua" })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
@@ -23,23 +26,32 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 3
 scene.add(camera)
 
+
+
 // Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
 
-let startTime = Date.now()
+
+//Clock
+
+const clock = new THREE.Clock()
+
 
 //Animations 
 const tick = () => {
-    const currentTime = Date.now()
+    const elapsedTime = clock.getElapsedTime()
 
-    //deltaTime helps to manually  mitigate the effect of difference in fps(frame per seconds) on systems.
-    const deltaTime = currentTime - startTime
-    startTime = currentTime
 
-    mesh.rotation.y += 0.002 * deltaTime
+    mesh.rotation.y = elapsedTime
+    mesh.rotation.x = elapsedTime
+    mesh.rotation.z = elapsedTime
+    mesh.position.y = Math.sin(elapsedTime)
+    mesh.position.x = Math.cos(elapsedTime)
+
+
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
 
