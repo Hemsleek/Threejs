@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 /**
  * Base
@@ -7,7 +8,6 @@ import * as THREE from 'three'
 /**
  * cursor
  */
-
 const cursor = {
     x: 0,
     y: 0
@@ -40,8 +40,6 @@ scene.add(mesh)
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 
-// for orthographic camera, to get a snapshot correspondong with the renderer, we need aspect ratio to calculate on the horizontal part
-
 
 
 // camera.position.x = 2
@@ -49,6 +47,14 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 
 camera.position.z = 3
 camera.lookAt(mesh.position)
 scene.add(camera)
+
+//controls
+const controls = new OrbitControls(camera, canvas)
+// controls.target.y = 2
+// controls.update()
+
+controls.enableDamping = true
+
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
@@ -65,10 +71,12 @@ const tick = () => {
     // Update objects
     // mesh.rotation.y = elapsedTime;
 
-    camera.position.x = cursor.x * 10
-    camera.position.y = cursor.y * 10
-    camera.lookAt(mesh.position)
+    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
+    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    // camera.position.y = cursor.y * 10
+    // camera.lookAt(mesh.position)
     // Render
+    controls.update()
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
