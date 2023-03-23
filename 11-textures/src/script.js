@@ -2,13 +2,33 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 
-const image = new Image()
-const texture = new THREE.Texture(image)
-image.onload = () => {
-    texture.needsUpdate = true
-}
 
-image.src = '/textures/door/color.jpg'
+//loadingManager
+
+const loadingManager = new THREE.LoadingManager()
+
+loadingManager.onStart = () => {
+    console.log('starting');
+}
+const textureLoader = new THREE.TextureLoader(loadingManager)
+// const texture = textureLoader.load('/textures/door/color.jpg')
+const texture = textureLoader.load('/textures/minecraft.png')
+
+// texture.repeat.y = 3
+// texture.repeat.x = 2
+
+// texture.wrapS = THREE.MirroredRepeatWrapping
+// texture.wrapT = THREE.MirroredRepeatWrapping
+
+// texture.offset.x = 0.5
+// texture.offset.y = 0.5
+// texture.rotation = Math.PI / 4
+texture.center.y = 0.5
+texture.center.x = 0.5
+texture.generateMipmaps = false
+texture.minFilter = THREE.NearestFilter
+texture.magFilter = THREE.NearestFilter
+
 /**
  * Base
  */
@@ -25,6 +45,8 @@ const geometry = new THREE.BoxGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial({ map: texture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
+
+
 
 /**
  * Sizes
