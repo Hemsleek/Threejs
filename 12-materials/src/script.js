@@ -13,7 +13,7 @@ const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
 const normalTexture = textureLoader.load('/textures/door/normal.jpg')
 const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
 const gradientTexture = textureLoader.load('/textures/gradient/3.png')
-const matCapTexture = textureLoader.load('/textures/matcaps/1.png')
+const matCapTexture = textureLoader.load('/textures/matcaps/2.png')
 
 /**
  * Base
@@ -37,8 +37,11 @@ const scene = new THREE.Scene()
 // material.alphaMap = alphaTexture
 // material.opacity = 0.5
 
-const material = new THREE.MeshNormalMaterial()
-material.flatShading = true
+// const material = new THREE.MeshNormalMaterial()
+// material.flatShading = true
+
+const material = new THREE.MeshMatcapMaterial()
+material.matcap = matCapTexture
 
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material)
@@ -106,13 +109,13 @@ const clock = new THREE.Clock()
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
-    sphere.rotation.y = 2 * elapsedTime
-    plane.rotation.y = 2 * elapsedTime
-    torus.rotation.y = 0.1 * elapsedTime
+    // sphere.rotation.y = 2 * elapsedTime
+    // plane.rotation.y = 2 * elapsedTime
+    // torus.rotation.y = 0.1 * elapsedTime
 
-    sphere.rotation.x = 0.15 * elapsedTime
-    plane.rotation.x = 0.15 * elapsedTime
-    torus.rotation.x = 0.15 * elapsedTime
+    // sphere.rotation.x = 0.15 * elapsedTime
+    // plane.rotation.x = 0.15 * elapsedTime
+    // torus.rotation.x = 0.15 * elapsedTime
 
 
     // Update controls
