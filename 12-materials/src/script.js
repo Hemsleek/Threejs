@@ -1,5 +1,9 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as lil from 'lil-gui'
+
+
+const lilGUI = new lil.GUI()
 
 /**
  * Texture
@@ -53,17 +57,40 @@ const scene = new THREE.Scene()
 // material.shininess = 100
 // material.specular = new THREE.Color('blue')
 
-const material = new THREE.MeshToonMaterial()
-material.gradientMap = gradientTexture
+// const material = new THREE.MeshToonMaterial()
+// material.gradientMap = gradientTexture
+
+const material = new THREE.MeshStandardMaterial()
+// material.metalness = 0.45
+// material.roughness = 0.45
+material.map = colorTexture
+material.aoMap = ambientOcclusionTexture
+material.aoMapIntensity = 2
+material.displacementMap = heightTexture
+material.displacementScale = 0.05
+material.metalnessMap = metalnessTexture
+material.roughnessMap = roughnessTexture
+material.normalMap = normalTexture
+material.normalScale.set(0.5, 0.5)
+material.transparent = true
+material.alphaMap = alphaTexture
+
+
+lilGUI.add(material, 'displacementScale').min(0).max(1).step(0.0001)
+lilGUI.add(material, 'aoMapIntensity').min(0).max(10).step(0.0001)
+lilGUI.add(material, 'metalness').min(0).max(1).step(0.0001)
+lilGUI.add(material, 'roughness').min(0).max(1).step(0.0001)
 
 
 
-
-const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material)
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 64, 64), material)
 sphere.position.x = -1.5
+sphere.geometry.setAttribute('uv2', new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2))
 
-const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1), material)
-const torus = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.2, 16, 32), material)
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 100, 100), material)
+plane.geometry.setAttribute('uv2', new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2))
+const torus = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.2, 64, 128), material)
+torus.geometry.setAttribute('uv2', new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2))
 torus.position.x = 1.5
 
 
