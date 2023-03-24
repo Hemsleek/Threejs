@@ -12,7 +12,11 @@ const heightTexture = textureLoader.load('/textures/door/height.jpg')
 const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
 const normalTexture = textureLoader.load('/textures/door/normal.jpg')
 const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
-const gradientTexture = textureLoader.load('/textures/gradient/3.png')
+const gradientTexture = textureLoader.load('/textures/gradients/5.jpg')
+gradientTexture.minFilter = THREE.NearestFilter
+gradientTexture.magFilter = THREE.NearestFilter
+gradientTexture.generateMipmaps = false
+
 const matCapTexture = textureLoader.load('/textures/matcaps/2.png')
 
 /**
@@ -45,9 +49,15 @@ const scene = new THREE.Scene()
 
 // const material = new THREE.MeshDepthMaterial()
 // const material = new THREE.MeshLambertMaterial()
-const material = new THREE.MeshPhongMaterial()
-material.shininess = 100
-material.specular = new THREE.Color('blue')
+// const material = new THREE.MeshPhongMaterial()
+// material.shininess = 100
+// material.specular = new THREE.Color('blue')
+
+const material = new THREE.MeshToonMaterial()
+material.gradientMap = gradientTexture
+
+
+
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material)
 sphere.position.x = -1.5
