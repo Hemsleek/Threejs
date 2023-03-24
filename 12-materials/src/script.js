@@ -9,6 +9,9 @@ const lilGUI = new lil.GUI()
  * Texture
  */
 const textureLoader = new THREE.TextureLoader()
+const cubeTextureLoader = new THREE.CubeTextureLoader()
+
+
 const colorTexture = textureLoader.load('/textures/door/color.jpg')
 const alphaTexture = textureLoader.load('/textures/door/alpha.jpg')
 const ambientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
@@ -22,6 +25,16 @@ gradientTexture.magFilter = THREE.NearestFilter
 gradientTexture.generateMipmaps = false
 
 const matCapTexture = textureLoader.load('/textures/matcaps/2.png')
+
+const environmentMapTexture = cubeTextureLoader.load([
+    '/textures/environmentMaps/3/px.jpg',
+    '/textures/environmentMaps/3/nx.jpg',
+    '/textures/environmentMaps/3/py.jpg',
+    '/textures/environmentMaps/3/ny.jpg',
+    '/textures/environmentMaps/3/pz.jpg',
+    '/textures/environmentMaps/3/nz.jpg',
+])
+
 
 /**
  * Base
@@ -60,21 +73,29 @@ const scene = new THREE.Scene()
 // const material = new THREE.MeshToonMaterial()
 // material.gradientMap = gradientTexture
 
-const material = new THREE.MeshStandardMaterial()
+// const material = new THREE.MeshStandardMaterial()
 // material.metalness = 0.45
 // material.roughness = 0.45
-material.map = colorTexture
-material.aoMap = ambientOcclusionTexture
-material.aoMapIntensity = 2
-material.displacementMap = heightTexture
-material.displacementScale = 0.05
-material.metalnessMap = metalnessTexture
-material.roughnessMap = roughnessTexture
-material.normalMap = normalTexture
-material.normalScale.set(0.5, 0.5)
-material.transparent = true
-material.alphaMap = alphaTexture
+// material.map = colorTexture
+// material.aoMap = ambientOcclusionTexture
+// material.aoMapIntensity = 2
+// material.displacementMap = heightTexture
+// material.displacementScale = 0.05
+// material.metalnessMap = metalnessTexture
+// material.roughnessMap = roughnessTexture
+// material.normalMap = normalTexture
+// material.normalScale.set(0.5, 0.5)
+// material.transparent = true
+// material.alphaMap = alphaTexture
 
+
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.7
+material.roughness = 0.2
+
+material.envMap = environmentMapTexture
+
+material.side = THREE.DoubleSide
 
 lilGUI.add(material, 'displacementScale').min(0).max(1).step(0.0001)
 lilGUI.add(material, 'aoMapIntensity').min(0).max(10).step(0.0001)
