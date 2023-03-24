@@ -28,14 +28,17 @@ const scene = new THREE.Scene()
 /**
  * Mesh
 */
-const material = new THREE.MeshBasicMaterial()
-material.map = colorTexture
-material.side = THREE.DoubleSide
+// const material = new THREE.MeshBasicMaterial()
+// material.map = colorTexture
+// material.side = THREE.DoubleSide
 // material.color.set('blue')
 // material.color = new THREE.Color('green')
-material.transparent = true
-material.alphaMap = alphaTexture
+// material.transparent = true
+// material.alphaMap = alphaTexture
 // material.opacity = 0.5
+
+const material = new THREE.MeshNormalMaterial()
+material.flatShading = true
 
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material)
